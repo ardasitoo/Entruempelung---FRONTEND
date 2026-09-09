@@ -1,4 +1,5 @@
 <script setup>
+import CustomerRequestList from './components/CustomerRequestList.vue'
 import ServiceList from './components/ServiceList.vue'
 </script>
 
@@ -58,6 +59,18 @@ import ServiceList from './components/ServiceList.vue'
           <p>Das Team raeumt, transportiert und entsorgt fachgerecht.</p>
         </div>
       </div>
+    </section>
+
+    <section id="anfragen" class="section">
+      <div class="section-heading">
+        <p class="eyebrow">Backend API</p>
+        <h2>Beispiel-Anfragen aus dem Backend</h2>
+        <p>
+          Diese Liste wird ueber die GET-Route
+          <code>/api/customer-requests</code> geladen.
+        </p>
+      </div>
+      <CustomerRequestList />
     </section>
 
     <section id="kontakt" class="section contact-section">

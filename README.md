@@ -38,7 +38,7 @@ Das Projekt befindet sich aktuell in der Entwicklung.
 - [x] Startseite erstellen
 - [x] Leistungsseiten erstellen
 - [ ] Anfrageformular erstellen
-- [ ] Backend anbinden
+- [x] Backend anbinden
 
 ## Lokal starten
 
@@ -51,4 +51,38 @@ Die Anwendung laeuft danach standardmaessig unter:
 
 ```text
 http://localhost:5173
+```
+
+## Backend verbinden
+
+Lokal kann eine `.env`-Datei auf Basis von `.env.example` angelegt werden:
+
+```text
+VITE_API_BASE_URL=http://localhost:8080
+```
+
+Auf Render muss diese Environment Variable auf die Backend-URL zeigen:
+
+```text
+VITE_API_BASE_URL=https://dein-backend.onrender.com
+```
+
+## Render Deployment
+
+Service-Typ:
+
+```text
+Static Site
+```
+
+Build Command:
+
+```bash
+npm install && npm run build
+```
+
+Publish Directory:
+
+```text
+dist
 ```

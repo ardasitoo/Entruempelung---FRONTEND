@@ -173,7 +173,8 @@ button {
   gap: 18px;
 }
 
-.service-card {
+.service-card,
+.request-card {
   min-height: 190px;
   padding: 24px;
   background: #fff;
@@ -182,9 +183,48 @@ button {
 }
 
 .service-card p,
+.request-card p,
 .steps p {
   color: #5c685f;
   line-height: 1.65;
+}
+
+.request-list {
+  min-height: 190px;
+}
+
+.request-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 18px;
+}
+
+.request-card {
+  display: grid;
+  gap: 10px;
+}
+
+.request-card p {
+  margin-bottom: 0;
+}
+
+.request-status {
+  color: #d58a3a;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.info-text,
+.error-text {
+  padding: 18px;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #dfe2d4;
+}
+
+.error-text {
+  color: #9d2f22;
 }
 
 .muted {
