@@ -20,7 +20,10 @@ Besucher sollen sich über die angebotenen Leistungen informieren und unkomplizi
 
 ## Technologien
 
-Die verwendeten Frontend-Technologien werden im Laufe der Entwicklung ergänzt.
+- Vue
+- Vite
+- JavaScript
+- CSS
 
 ## Projektstatus
 
@@ -29,10 +32,23 @@ Das Projekt befindet sich aktuell in der Entwicklung.
 ### Aktueller Stand
 
 - [x] GitHub-Repository erstellt
-- [ ] Frontend-Projekt einrichten
-- [ ] Grundlegendes Layout erstellen
-- [ ] Navigation erstellen
-- [ ] Startseite erstellen
-- [ ] Leistungsseiten erstellen
+- [x] Frontend-Projekt einrichten
+- [x] Grundlegendes Layout erstellen
+- [x] Navigation erstellen
+- [x] Startseite erstellen
+- [x] Leistungsseiten erstellen
 - [ ] Anfrageformular erstellen
 - [ ] Backend anbinden
+
+## Lokal starten
+
+```bash
+npm install
+npm run dev
+```
+
+Die Anwendung laeuft danach standardmaessig unter:
+
+```text
+http://localhost:5173
+```
