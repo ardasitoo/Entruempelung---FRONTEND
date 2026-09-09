@@ -1,10 +1,5 @@
 <script setup>
-const services = [
-  'Wohnungsaufloesung',
-  'Kellerentruempelung',
-  'Garagenentruempelung',
-  'Sperrmuell & Entsorgung',
-]
+import ServiceList from './components/ServiceList.vue'
 </script>
 
 <template>
@@ -38,15 +33,7 @@ const services = [
         <p class="eyebrow">Leistungen</p>
         <h2>Wobei wir helfen</h2>
       </div>
-      <div class="service-grid">
-        <article v-for="service in services" :key="service" class="service-card">
-          <h3>{{ service }}</h3>
-          <p>
-            Besichtigung, Planung, Transport und Entsorgung werden strukturiert
-            vorbereitet und sauber umgesetzt.
-          </p>
-        </article>
-      </div>
+      <ServiceList />
     </section>
 
     <section id="ablauf" class="section muted">
