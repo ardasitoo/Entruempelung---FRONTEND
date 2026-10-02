@@ -67,6 +67,17 @@ Auf Render muss diese Environment Variable auf die Backend-URL zeigen:
 VITE_API_BASE_URL=https://dein-backend.onrender.com
 ```
 
+## Admin-Bereich
+
+Die geschuetzte Admin-Ansicht ist unter `/admin` erreichbar:
+
+```text
+http://localhost:5173/admin
+```
+
+Die Zugangsdaten entsprechen den Backend-Variablen `ADMIN_USERNAME` und
+`ADMIN_PASSWORD`.
+
 ## Render Deployment
 
 Service-Typ:
