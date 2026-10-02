@@ -1,15 +1,6 @@
 <script setup>
-import { ref } from 'vue'
-
 import CustomerRequestForm from './components/CustomerRequestForm.vue'
-import CustomerRequestList from './components/CustomerRequestList.vue'
 import ServiceList from './components/ServiceList.vue'
-
-const requestListRefreshKey = ref(0)
-
-function refreshCustomerRequests() {
-  requestListRefreshKey.value += 1
-}
 </script>
 
 <template>
@@ -70,18 +61,6 @@ function refreshCustomerRequests() {
       </div>
     </section>
 
-    <section id="anfragen" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">Backend API</p>
-        <h2>Beispiel-Anfragen aus dem Backend</h2>
-        <p>
-          Diese Liste wird ueber die GET-Route
-          <code>/api/customer-requests</code> geladen.
-        </p>
-      </div>
-      <CustomerRequestList :refresh-key="requestListRefreshKey" />
-    </section>
-
     <section id="kontakt" class="section contact-section">
       <div class="section-heading">
         <p class="eyebrow">Kontakt</p>
@@ -91,7 +70,7 @@ function refreshCustomerRequests() {
           Kundenanfrage gespeichert.
         </p>
       </div>
-      <CustomerRequestForm @request-created="refreshCustomerRequests" />
+      <CustomerRequestForm />
     </section>
   </main>
 </template>

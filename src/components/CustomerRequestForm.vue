@@ -2,8 +2,6 @@
 import { reactive, ref } from 'vue'
 import { apiBaseUrl } from '../config/api'
 
-const emit = defineEmits(['request-created'])
-
 const initialFormState = {
   firstName: '',
   lastName: '',
@@ -47,7 +45,6 @@ async function submitRequest() {
 
     resetForm()
     successMessage.value = 'Danke, deine Anfrage wurde erfolgreich gespeichert.'
-    emit('request-created')
   } catch (error) {
     errorMessage.value = error.message
   } finally {
