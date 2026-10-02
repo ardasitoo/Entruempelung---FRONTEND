@@ -37,7 +37,7 @@ Das Projekt befindet sich aktuell in der Entwicklung.
 - [x] Navigation erstellen
 - [x] Startseite erstellen
 - [x] Leistungsseiten erstellen
-- [ ] Anfrageformular erstellen
+- [x] Anfrageformular erstellen
 - [x] Backend anbinden
 
 ## Lokal starten

@@ -1,6 +1,15 @@
 <script setup>
+import { ref } from 'vue'
+
+import CustomerRequestForm from './components/CustomerRequestForm.vue'
 import CustomerRequestList from './components/CustomerRequestList.vue'
 import ServiceList from './components/ServiceList.vue'
+
+const requestListRefreshKey = ref(0)
+
+function refreshCustomerRequests() {
+  requestListRefreshKey.value += 1
+}
 </script>
 
 <template>
@@ -70,33 +79,19 @@ import ServiceList from './components/ServiceList.vue'
           <code>/api/customer-requests</code> geladen.
         </p>
       </div>
-      <CustomerRequestList />
+      <CustomerRequestList :refresh-key="requestListRefreshKey" />
     </section>
 
     <section id="kontakt" class="section contact-section">
       <div class="section-heading">
         <p class="eyebrow">Kontakt</p>
-        <h2>Anfrage vorbereiten</h2>
+        <h2>Anfrage stellen</h2>
         <p>
-          Das Formular wird im naechsten Schritt mit dem Backend verbunden. Die
-          API ist bereits unter <code>/api/customer-requests</code> vorbereitet.
+          Deine Angaben werden an das Backend gesendet und dort als neue
+          Kundenanfrage gespeichert.
         </p>
       </div>
-      <form class="contact-form">
-        <label>
-          Name
-          <input type="text" name="name" placeholder="Max Mustermann" />
-        </label>
-        <label>
-          E-Mail
-          <input type="email" name="email" placeholder="max@example.com" />
-        </label>
-        <label>
-          Nachricht
-          <textarea name="message" rows="5" placeholder="Was soll entruempelt werden?"></textarea>
-        </label>
-        <button type="button">Anfrage bald senden</button>
-      </form>
+      <CustomerRequestForm @request-created="refreshCustomerRequests" />
     </section>
   </main>
 </template>

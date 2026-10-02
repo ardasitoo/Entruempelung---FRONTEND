@@ -1,13 +1,22 @@
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
+import { apiBaseUrl } from '../config/api'
+
+const props = defineProps({
+  refreshKey: {
+    type: Number,
+    default: 0,
+  },
+})
 
 const customerRequests = ref([])
 const isLoading = ref(true)
 const errorMessage = ref('')
 
-const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080'
+async function loadCustomerRequests() {
+  isLoading.value = true
+  errorMessage.value = ''
 
-onMounted(async () => {
   try {
     const response = await fetch(`${apiBaseUrl}/api/customer-requests`)
 
@@ -21,7 +30,10 @@ onMounted(async () => {
   } finally {
     isLoading.value = false
   }
-})
+}
+
+onMounted(loadCustomerRequests)
+watch(() => props.refreshKey, loadCustomerRequests)
 </script>
 
 <template>
