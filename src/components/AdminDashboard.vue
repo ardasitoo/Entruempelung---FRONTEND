@@ -128,6 +128,10 @@ function logout() {
                 <dd>{{ request.address }}</dd>
               </div>
               <div>
+                <dt>Postleitzahl</dt>
+                <dd>{{ request.postalCode }}</dd>
+              </div>
+              <div>
                 <dt>Eingegangen</dt>
                 <dd>{{ request.createdAt }}</dd>
               </div>

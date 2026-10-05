@@ -9,6 +9,7 @@ const initialFormState = {
   phone: '',
   serviceType: '',
   address: '',
+  postalCode: '',
   preferredDate: '',
   message: '',
 }
@@ -88,16 +89,29 @@ async function submitRequest() {
       </select>
     </label>
 
-    <label>
-      Adresse
-      <input
-        v-model="form.address"
-        type="text"
-        name="address"
-        placeholder="Musterstrasse 12, 12345 Berlin"
-        required
-      />
-    </label>
+    <div class="form-row">
+      <label>
+        Adresse
+        <input
+          v-model="form.address"
+          type="text"
+          name="address"
+          placeholder="Musterstrasse 12, Berlin"
+          required
+        />
+      </label>
+      <label>
+        Postleitzahl
+        <input
+          v-model="form.postalCode"
+          type="text"
+          name="postalCode"
+          inputmode="numeric"
+          placeholder="12345"
+          required
+        />
+      </label>
+    </div>
 
     <label>
       Wunschtermin
