@@ -97,3 +97,11 @@ Publish Directory:
 ```text
 dist
 ```
+
+### Auftragsstatus bearbeiten
+
+Nach dem Admin-Login bei einer Anfrage den Status auswählen und „Status speichern“
+anklicken. Der gespeicherte Status erscheint oberhalb des Kundennamens. Die Auswahl
+allein ändert den gespeicherten Wert noch nicht; Fehler und Erfolg werden bei der
+jeweiligen Anfrage angezeigt. Dafür muss auch das Backend mit der geschützten
+PATCH-Route `/api/customer-requests/{id}/status` aktualisiert sein.

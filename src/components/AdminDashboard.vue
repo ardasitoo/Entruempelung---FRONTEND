@@ -9,6 +9,20 @@ const isLoading = ref(false)
 const errorMessage = ref('')
 const isLoggedIn = ref(false)
 
+const statusOptions = [
+  { value: 'NEW', label: 'Neu' },
+  { value: 'CONTACTED', label: 'Kontaktiert' },
+  { value: 'OFFER_SENT', label: 'Angebot gesendet' },
+  { value: 'ACCEPTED', label: 'Angenommen' },
+  { value: 'REJECTED', label: 'Abgelehnt' },
+  { value: 'COMPLETED', label: 'Abgeschlossen' },
+]
+const selectedStatuses = ref({})
+const savingStatuses = ref({})
+const statusMessages = ref({})
+const statusErrors = ref({})
+const statusLabel = (status) => statusOptions.find((option) => option.value === status)?.label || status
+
 const hasRequests = computed(() => customerRequests.value.length > 0)
 
 function createAuthorizationHeader() {
@@ -35,6 +49,9 @@ async function loadCustomerRequests() {
     }
 
     customerRequests.value = await response.json()
+    selectedStatuses.value = Object.fromEntries(customerRequests.value.map((request) => [request.id, request.status]))
+    statusMessages.value = {}
+    statusErrors.value = {}
     isLoggedIn.value = true
   } catch (error) {
     customerRequests.value = []
@@ -42,6 +59,33 @@ async function loadCustomerRequests() {
     errorMessage.value = error.message
   } finally {
     isLoading.value = false
+  }
+}
+
+async function saveStatus(request) {
+  const id = request.id
+  savingStatuses.value[id] = true
+  statusMessages.value[id] = ''
+  statusErrors.value[id] = ''
+  try {
+    const response = await fetch(`${apiBaseUrl}/api/customer-requests/${id}/status`, {
+      method: 'PATCH',
+      headers: { Authorization: createAuthorizationHeader(), 'Content-Type': 'application/json' },
+      body: JSON.stringify({ status: selectedStatuses.value[id] }),
+    })
+    if (response.status === 401 || response.status === 403) {
+      throw new Error('Keine Berechtigung. Bitte erneut anmelden.')
+    }
+    if (response.status === 404) throw new Error('Diese Anfrage wurde nicht gefunden. Bitte die Übersicht aktualisieren.')
+    if (!response.ok) throw new Error('Der Status konnte nicht gespeichert werden. Bitte erneut versuchen.')
+    const updated = await response.json()
+    request.status = updated.status
+    statusMessages.value[id] = 'Status gespeichert.'
+  } catch (error) {
+    statusErrors.value[id] = error.message === 'Load failed' || error instanceof TypeError
+      ? 'Keine Verbindung zum Server. Bitte erneut versuchen.' : error.message
+  } finally {
+    savingStatuses.value[id] = false
   }
 }
 
@@ -74,7 +118,7 @@ function logout() {
           Passwort
           <input v-model="password" type="password" autocomplete="current-password" required />
         </label>
-        <button type="submit" :disabled="isLoading">
+        <button type="submit" :disabled="isLoading || Object.values(savingStatuses).some(Boolean)">
           {{ isLoading ? 'Anmelden...' : 'Anmelden' }}
         </button>
         <p v-if="errorMessage" class="error-text">{{ errorMessage }}</p>
@@ -84,10 +128,10 @@ function logout() {
         <div class="admin-toolbar">
           <p>{{ customerRequests.length }} Anfrage(n)</p>
           <div class="admin-actions">
-            <button type="button" class="secondary admin-action-button" @click="loadCustomerRequests">
+            <button type="button" class="secondary admin-action-button" :disabled="isLoading || Object.values(savingStatuses).some(Boolean)" @click="loadCustomerRequests">
               Aktualisieren
             </button>
-            <button type="button" class="admin-action-button" @click="logout">Abmelden</button>
+            <button type="button" class="admin-action-button" :disabled="Object.values(savingStatuses).some(Boolean)" @click="logout">Abmelden</button>
           </div>
         </div>
 
@@ -98,11 +142,25 @@ function logout() {
           <article v-for="request in customerRequests" :key="request.id" class="admin-request-card">
             <div class="admin-request-topline">
               <div>
-                <p class="request-status">{{ request.status }}</p>
+                <p class="request-status">{{ statusLabel(request.status) }}</p>
                 <h2>{{ request.firstName }} {{ request.lastName }}</h2>
               </div>
               <span>#{{ request.id }}</span>
             </div>
+
+            <form class="status-editor" @submit.prevent="saveStatus(request)">
+              <label :for="`status-${request.id}`">Auftragsstatus</label>
+              <div class="status-controls">
+                <select :id="`status-${request.id}`" v-model="selectedStatuses[request.id]" :disabled="savingStatuses[request.id]">
+                  <option v-for="option in statusOptions" :key="option.value" :value="option.value">{{ option.label }}</option>
+                </select>
+                <button type="submit" :disabled="savingStatuses[request.id] || selectedStatuses[request.id] === request.status">
+                  {{ savingStatuses[request.id] ? 'Speichert…' : 'Status speichern' }}
+                </button>
+              </div>
+              <p v-if="statusMessages[request.id]" role="status">{{ statusMessages[request.id] }}</p>
+              <p v-if="statusErrors[request.id]" class="error-text" role="alert">{{ statusErrors[request.id] }}</p>
+            </form>
 
             <dl class="request-details">
               <div>
