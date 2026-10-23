@@ -4,12 +4,19 @@ import { computed } from 'vue'
 import AdminDashboard from './components/AdminDashboard.vue'
 import CustomerRequestForm from './components/CustomerRequestForm.vue'
 import ServiceList from './components/ServiceList.vue'
+import LegalPage from './components/LegalPage.vue'
 
-const currentPath = computed(() => window.location.pathname)
+const currentPath = computed(() => window.location.pathname.replace(/\/+$/, '') || '/')
+const legalPage = computed(() => ({ '/impressum': 'impressum', '/datenschutz': 'datenschutz' })[currentPath.value])
+if (legalPage.value) {
+  document.title = `${legalPage.value === 'impressum' ? 'Impressum' : 'Datenschutzerklärung'} | NEXRUM`
+}
 </script>
 
 <template>
   <AdminDashboard v-if="currentPath === '/admin'" />
+
+  <LegalPage v-else-if="legalPage" :page="legalPage" />
 
   <template v-else>
     <header class="site-header">
@@ -74,12 +81,18 @@ const currentPath = computed(() => window.location.pathname)
           <p class="eyebrow">Kontakt</p>
           <h2>Anfrage stellen</h2>
           <p>
-            Deine Angaben werden an das Backend gesendet und dort als neue
-            Kundenanfrage gespeichert.
+            Beschreibe uns dein Vorhaben. Wir melden uns bei dir, um die nächsten Schritte zu besprechen.
           </p>
         </div>
         <CustomerRequestForm />
       </section>
     </main>
   </template>
+  <footer class="site-footer">
+    <span>© {{ new Date().getFullYear() }} NEXRUM</span>
+    <nav aria-label="Rechtliche Informationen">
+      <a href="/impressum" :aria-current="legalPage === 'impressum' ? 'page' : undefined">Impressum</a>
+      <a href="/datenschutz" :aria-current="legalPage === 'datenschutz' ? 'page' : undefined">Datenschutz</a>
+    </nav>
+  </footer>
 </template>

@@ -128,6 +128,11 @@ async function submitRequest() {
       ></textarea>
     </label>
 
+    <p class="form-privacy-note">
+      Wir verwenden deine Angaben zur Bearbeitung deiner Anfrage.
+      Weitere Informationen findest du in unserer <a href="/datenschutz" target="_blank" rel="noopener">Datenschutzerklärung (neuer Tab)</a>.
+    </p>
+
     <button type="submit" :disabled="isSubmitting">
       {{ isSubmitting ? 'Anfrage wird gesendet...' : 'Anfrage senden' }}
     </button>

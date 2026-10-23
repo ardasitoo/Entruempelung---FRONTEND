@@ -508,3 +508,16 @@ code {
 .status-controls button { width: auto; }
 .status-editor p { margin: .5rem 0 0; }
 button:disabled { opacity: .6; cursor: not-allowed; }
+
+.site-footer { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 20px; padding: 28px clamp(20px, 5vw, 72px); border-top: 1px solid #dfe2d4; color: #4d5a51; }
+.site-footer nav { display: flex; flex-wrap: wrap; gap: 24px; }
+.site-footer a, .legal-page a, .form-privacy-note a { text-decoration: underline; text-underline-offset: 3px; }
+.site-footer a[aria-current="page"] { font-weight: 800; }
+.legal-page { max-width: 920px; padding: 48px 24px 72px; margin: 0 auto; overflow-wrap: anywhere; }
+.legal-page h1 { font-size: clamp(2rem, 7vw, 3.5rem); line-height: 1.15; margin-bottom: 32px; }
+.legal-page h2 { font-size: 1.35rem; margin: 32px 0 12px; line-height: 1.4; }
+.legal-page h3 { font-size: 1.1rem; margin: 24px 0 12px; }
+.legal-page p, .legal-page li { line-height: 1.75; }
+.legal-page p { margin: 8px 0; }
+.form-privacy-note { font-size: .9rem; line-height: 1.6; color: #4d5a51; }
+a:focus-visible { outline: 3px solid #8b541e; outline-offset: 4px; }
