@@ -79,13 +79,15 @@ async function submitRequest() {
     </div>
 
     <label>
-      Art der Entrümpelung
+      Gewünschte Leistung
       <select v-model="form.serviceType" name="serviceType" required>
         <option value="" disabled>Bitte auswählen</option>
         <option>Wohnungsauflösung</option>
         <option>Kellerentrümpelung</option>
         <option>Garagenentrümpelung</option>
         <option>Sperrmüll & Entsorgung</option>
+        <option>Umzug</option>
+        <option>Malerarbeiten auf Wunsch</option>
       </select>
     </label>
 
@@ -124,7 +126,7 @@ async function submitRequest() {
         v-model="form.message"
         name="message"
         rows="5"
-        placeholder="Welche Räume sollen geräumt werden? Was ist dir wichtig?"
+        placeholder="Was möchtest du entrümpeln, wohin ziehst du um oder welche Malerarbeiten wünschst du dir?"
       ></textarea>
     </label>
 
