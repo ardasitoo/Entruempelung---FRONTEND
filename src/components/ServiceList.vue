@@ -5,7 +5,7 @@ const services = [
   { title: 'Garagenentrümpelung', description: 'Freie Fläche statt voller Garage. Wir sortieren, räumen und entsorgen alte Gegenstände.', icon: 'M3 21V8l9-5 9 5v13M7 21V11h10v10M7 15h10M7 18h10' },
   { title: 'Sperrmüll & Entsorgung', description: 'Weg mit dem, was nicht mehr gebraucht wird. Abholung und fachgerechte Entsorgung.', icon: 'M3 5h12v12H3zM15 9h4l3 4v4h-7M7 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4m11 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4' },
   { title: 'Umzüge', description: 'Ein neuer Ort, ein klarer Plan. Wir unterstützen dich beim Umzug – Umfang und Ablauf stimmen wir persönlich mit dir ab.', icon: 'M3 4h11v13H3zM14 9h5l3 4v4h-8M7 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4m11 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4M6 8h5M8.5 6v4' },
-  { title: 'Malerarbeiten auf Wunsch', description: 'Ein frischer Anstrich für deinen nächsten Schritt. Auf Wunsch besprechen wir passende Malerarbeiten und erstellen ein individuelles Angebot.', icon: 'M4 3h13v6H4zM17 5h3v7h-9v3M9 15h4v7H9z' },
+  { title: 'Einfache Streicharbeiten', description: 'Auf Wunsch übernehmen wir einfache Anstriche für eine saubere Übergabe. Umfang und Eignung stimmen wir vorab ab. Aufwendige Maler- und Renovierungsarbeiten gehören nicht zu diesem Angebot.', icon: 'M4 3h13v6H4zM17 5h3v7h-9v3M9 15h4v7H9z' },
 ]
 </script>
 <template>

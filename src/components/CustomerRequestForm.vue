@@ -87,7 +87,7 @@ async function submitRequest() {
         <option>Garagenentrümpelung</option>
         <option>Sperrmüll & Entsorgung</option>
         <option>Umzug</option>
-        <option>Malerarbeiten auf Wunsch</option>
+        <option>Einfache Streicharbeiten zur Übergabe</option>
       </select>
     </label>
 
@@ -126,7 +126,7 @@ async function submitRequest() {
         v-model="form.message"
         name="message"
         rows="5"
-        placeholder="Was möchtest du entrümpeln, wohin ziehst du um oder welche Malerarbeiten wünschst du dir?"
+        placeholder="Was möchtest du entrümpeln, wohin ziehst du um oder welche Räume sollen für die Übergabe einfach gestrichen werden?"
       ></textarea>
     </label>
 

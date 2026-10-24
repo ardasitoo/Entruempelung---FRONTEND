@@ -60,7 +60,7 @@ defineProps({ page: { type: String, required: true } })
           <li>Nachname</li>
           <li>E-Mail-Adresse</li>
           <li>Telefonnummer</li>
-          <li>Gewünschte Leistung (zum Beispiel Entrümpelung, Umzug oder Malerarbeiten)</li>
+          <li>Gewünschte Leistung (zum Beispiel Entrümpelung, Umzug oder einfache Streicharbeiten zur Übergabe)</li>
           <li>Adresse des Einsatzortes</li>
           <li>Postleitzahl</li>
           <li>Wunschtermin</li>
