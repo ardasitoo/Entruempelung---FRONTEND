@@ -1,10 +1,11 @@
 <script setup>
+import BrandWordmark from './BrandWordmark.vue'
 defineProps({ page: { type: String, required: true } })
 </script>
 
 <template>
   <header class="site-header">
-    <a class="brand" href="/">NEXRUM</a>
+    <a class="brand" href="/" aria-label="NEXRUM Startseite"><BrandWordmark /></a>
     <nav class="navigation" aria-label="Hauptnavigation">
       <a href="/">Startseite</a>
       <a href="/#kontakt">Kontakt</a>

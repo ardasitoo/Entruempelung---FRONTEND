@@ -79,13 +79,13 @@ async function submitRequest() {
     </div>
 
     <label>
-      Art der Entruempelung
+      Art der Entrümpelung
       <select v-model="form.serviceType" name="serviceType" required>
-        <option value="" disabled>Bitte auswaehlen</option>
-        <option>Wohnungsaufloesung</option>
-        <option>Kellerentruempelung</option>
-        <option>Garagenentruempelung</option>
-        <option>Sperrmuell & Entsorgung</option>
+        <option value="" disabled>Bitte auswählen</option>
+        <option>Wohnungsauflösung</option>
+        <option>Kellerentrümpelung</option>
+        <option>Garagenentrümpelung</option>
+        <option>Sperrmüll & Entsorgung</option>
       </select>
     </label>
 
@@ -124,7 +124,7 @@ async function submitRequest() {
         v-model="form.message"
         name="message"
         rows="5"
-        placeholder="Was soll entruempelt werden?"
+        placeholder="Welche Räume sollen geräumt werden? Was ist dir wichtig?"
       ></textarea>
     </label>
 
@@ -134,7 +134,7 @@ async function submitRequest() {
     </p>
 
     <button type="submit" :disabled="isSubmitting">
-      {{ isSubmitting ? 'Anfrage wird gesendet...' : 'Anfrage senden' }}
+      {{ isSubmitting ? 'Anfrage wird gesendet...' : 'Unverbindliches Angebot anfordern' }}
     </button>
 
     <p v-if="successMessage" class="success-text">{{ successMessage }}</p>

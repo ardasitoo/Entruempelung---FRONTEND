@@ -1,33 +1,16 @@
 <script setup>
 const services = [
-  {
-    id: 1,
-    title: 'Wohnungsaufloesung',
-    description: 'Komplette Raeumung von Wohnungen inklusive Transport und Entsorgung.',
-  },
-  {
-    id: 2,
-    title: 'Kellerentruempelung',
-    description: 'Strukturierte Entruempelung von Kellern, Abstellraeumen und Lagerflaechen.',
-  },
-  {
-    id: 3,
-    title: 'Garagenentruempelung',
-    description: 'Fachgerechte Sortierung und Entsorgung von alten Gegenstaenden aus Garagen.',
-  },
-  {
-    id: 4,
-    title: 'Sperrmuell & Entsorgung',
-    description: 'Abholung und verantwortungsvolle Entsorgung von Sperrmuell und Altmaterial.',
-  },
+  { title: 'Wohnungsauflösung', description: 'Eine Wohnung, ein neuer Anfang. Wir übernehmen Räumung, Transport und Entsorgung.', icon: 'M3 10 12 3l9 7M5 9v12h14V9M9 21v-7h6v7' },
+  { title: 'Kellerentrümpelung', description: 'Wieder Platz für das Wesentliche. Wir räumen Keller, Abstellräume und Lagerflächen.', icon: 'M3 7h18v14H3zM7 3v4m10-4v4M3 12h18M8 16h8' },
+  { title: 'Garagenentrümpelung', description: 'Freie Fläche statt voller Garage. Wir sortieren, räumen und entsorgen alte Gegenstände.', icon: 'M3 21V8l9-5 9 5v13M7 21V11h10v10M7 15h10M7 18h10' },
+  { title: 'Sperrmüll & Entsorgung', description: 'Weg mit dem, was nicht mehr gebraucht wird. Abholung und fachgerechte Entsorgung.', icon: 'M3 5h12v12H3zM15 9h4l3 4v4h-7M7 21a2 2 0 1 0 0-4 2 2 0 0 0 0 4m11 0a2 2 0 1 0 0-4 2 2 0 0 0 0 4' },
 ]
 </script>
-
 <template>
   <div class="service-grid">
-    <article v-for="service in services" :key="service.id" class="service-card">
-      <h3>{{ service.title }}</h3>
-      <p>{{ service.description }}</p>
-    </article>
+    <a v-for="(service, index) in services" :key="service.title" class="service-card" href="#kontakt">
+      <div class="service-card-top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path :d="service.icon" /></svg><span>0{{ index + 1 }}</span></div>
+      <h3>{{ service.title }}</h3><p>{{ service.description }}</p><span class="service-card-link">Unverbindlich anfragen <span aria-hidden="true">↗</span></span>
+    </a>
   </div>
 </template>

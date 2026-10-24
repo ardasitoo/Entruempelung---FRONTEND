@@ -1,5 +1,6 @@
 <script setup>
 import { computed, ref } from 'vue'
+import BrandWordmark from './BrandWordmark.vue'
 import { apiBaseUrl } from '../config/api'
 
 const username = ref('')
@@ -41,7 +42,7 @@ async function loadCustomerRequests() {
     })
 
     if (response.status === 401) {
-      throw new Error('Login fehlgeschlagen. Bitte Zugangsdaten pruefen.')
+      throw new Error('Login fehlgeschlagen. Bitte Zugangsdaten prüfen.')
     }
 
     if (!response.ok) {
@@ -102,9 +103,10 @@ function logout() {
     <section class="admin-shell">
       <div class="admin-header">
         <div>
-          <p class="eyebrow">Admin</p>
+          <a class="brand" href="/" aria-label="NEXRUM Startseite"><BrandWordmark /></a>
+          <p class="eyebrow" style="margin-top: 24px">Admin / Kundenanfragen</p>
           <h1>Kundenanfragen</h1>
-          <p>Geschuetzte Uebersicht fuer eingegangene Entruempelungsanfragen.</p>
+          <p>Geschützte Übersicht für eingegangene Entrümpelungsanfragen.</p>
         </div>
         <a class="button secondary admin-back-link" href="/">Zur Website</a>
       </div>

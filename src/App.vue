@@ -5,9 +5,11 @@ import AdminDashboard from './components/AdminDashboard.vue'
 import CustomerRequestForm from './components/CustomerRequestForm.vue'
 import ServiceList from './components/ServiceList.vue'
 import LegalPage from './components/LegalPage.vue'
+import BrandWordmark from './components/BrandWordmark.vue'
 
 const currentPath = computed(() => window.location.pathname.replace(/\/+$/, '') || '/')
 const legalPage = computed(() => ({ '/impressum': 'impressum', '/datenschutz': 'datenschutz' })[currentPath.value])
+document.title = 'NEXRUM – Raum für Neues'
 if (legalPage.value) {
   document.title = `${legalPage.value === 'impressum' ? 'Impressum' : 'Datenschutzerklärung'} | NEXRUM`
 }
@@ -20,76 +22,66 @@ if (legalPage.value) {
 
   <template v-else>
     <header class="site-header">
-      <a class="brand" href="#top">Entruempelung Service</a>
+      <a class="brand" href="#top" aria-label="NEXRUM Startseite"><BrandWordmark /></a>
       <nav class="navigation" aria-label="Hauptnavigation">
         <a href="#leistungen">Leistungen</a>
-        <a href="#ablauf">Ablauf</a>
+        <a href="#ablauf">So läuft’s</a>
         <a href="#kontakt">Kontakt</a>
       </nav>
+      <a class="button header-cta" href="#kontakt">Kostenlose Anfrage <span aria-hidden="true">↗</span></a>
     </header>
 
     <main id="top">
       <section class="hero">
         <div class="hero-content">
-          <p class="eyebrow">Entruempelung, Aufloesung, Entsorgung</p>
-          <h1>Mehr Platz schaffen. Schnell, sauber und verlaesslich.</h1>
-          <p class="hero-text">
-            Wir unterstuetzen Privat- und Geschaeftskunden bei Entruempelungen,
-            Wohnungsaufloesungen und fachgerechter Entsorgung.
-          </p>
+          <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> NEXRUM · Entrümpelung in Berlin</p>
+          <h1>Platz für das,<br />was <span>kommt.</span></h1>
+          <p class="hero-text">Wir schaffen Raum für deinen nächsten Schritt. Mit strukturierten Entrümpelungen, Wohnungsauflösungen und fachgerechter Entsorgung.</p>
           <div class="hero-actions">
-            <a class="button primary" href="#kontakt">Anfrage stellen</a>
-            <a class="button secondary" href="#leistungen">Leistungen ansehen</a>
+            <a class="button primary" href="#kontakt">Kostenlose Anfrage stellen <span aria-hidden="true">↗</span></a>
+            <a class="text-link" href="#leistungen">Leistungen entdecken <span aria-hidden="true">↓</span></a>
           </div>
+          <div class="hero-notes"><span><b aria-hidden="true">✓</b> Unverbindlich anfragen</span><span><b aria-hidden="true">✓</b> Persönlich abstimmen</span></div>
+        </div>
+        <div class="hero-visual" role="img" aria-label="Professionelle Reinigung eines hellen Raums">
+          <div class="hero-photo-caption"><span>NEXRUM</span><strong>Raum für Neues.</strong><p>Entrümpelung. Auflösung. Entsorgung.</p></div>
+          <span class="photo-label">KLARER PLAN. FREIER RAUM.</span>
         </div>
       </section>
 
       <section id="leistungen" class="section">
-        <div class="section-heading">
-          <p class="eyebrow">Leistungen</p>
-          <h2>Wobei wir helfen</h2>
+        <div class="section-heading split-heading">
+          <div><p class="eyebrow">01 / Unsere Leistungen</p><h2>Mehr Freiraum.<br />Weniger Aufwand.</h2></div>
+          <p>Von einzelnen Räumen bis zur ganzen Wohnung: Wir helfen dir, den nächsten Schritt übersichtlich und unkompliziert anzugehen.</p>
         </div>
         <ServiceList />
       </section>
 
-      <section id="ablauf" class="section muted">
-        <div class="section-heading">
-          <p class="eyebrow">Ablauf</p>
-          <h2>In drei Schritten zur freien Flaeche</h2>
-        </div>
-        <div class="steps">
-          <div>
-            <span>01</span>
-            <h3>Anfrage senden</h3>
-            <p>Du beschreibst kurz, was entrümpelt werden soll.</p>
-          </div>
-          <div>
-            <span>02</span>
-            <h3>Termin abstimmen</h3>
-            <p>Wir klaeren Umfang, Zeitfenster und ein passendes Angebot.</p>
-          </div>
-          <div>
-            <span>03</span>
-            <h3>Sauber erledigen</h3>
-            <p>Das Team raeumt, transportiert und entsorgt fachgerecht.</p>
+      <section id="ablauf" class="process-section">
+        <div class="section">
+          <div class="section-heading"><p class="eyebrow">02 / Der Ablauf</p><h2>Klar geplant.<br />Sauber erledigt.</h2><p>Du sagst uns, was ansteht. Gemeinsam stimmen wir die nächsten Schritte ab.</p></div>
+          <div class="steps">
+            <article><span class="step-number">01</span><h3>Vorhaben beschreiben</h3><p>Teile uns mit, welche Räume geräumt werden sollen und was dir wichtig ist.</p></article>
+            <article><span class="step-number">02</span><h3>Gemeinsam abstimmen</h3><p>Wir besprechen Umfang, Termin und Angebot. So weißt du, was dich erwartet.</p></article>
+            <article><span class="step-number">03</span><h3>Raum zurückgewinnen</h3><p>Wir übernehmen Räumung, Transport und fachgerechte Entsorgung.</p></article>
           </div>
         </div>
       </section>
 
       <section id="kontakt" class="section contact-section">
-        <div class="section-heading">
-          <p class="eyebrow">Kontakt</p>
-          <h2>Anfrage stellen</h2>
-          <p>
-            Beschreibe uns dein Vorhaben. Wir melden uns bei dir, um die nächsten Schritte zu besprechen.
-          </p>
+        <div class="contact-intro">
+          <p class="eyebrow">03 / Dein nächster Schritt</p><h2>Was darf für dich <span>gehen?</span></h2>
+          <p>Erzähl uns von deinem Vorhaben. Wir melden uns bei dir und stimmen alles Weitere persönlich ab.</p>
+          <div class="contact-details"><span>Lieber direkt sprechen?</span><a href="tel:+4915170162872">0151 70162872 <span aria-hidden="true">↗</span></a><a class="contact-email" href="mailto:info.entruempelungen@web.de">info.entruempelungen@web.de</a></div>
+          <p class="contact-small">Deine Anfrage ist kostenlos und unverbindlich.</p>
         </div>
-        <CustomerRequestForm />
+        <div class="form-shell"><h3>Deine Anfrage an NEXRUM</h3><p>Ein paar Angaben genügen für den Anfang.</p><CustomerRequestForm /></div>
       </section>
     </main>
   </template>
   <footer class="site-footer">
-    <span>© {{ new Date().getFullYear() }} NEXRUM</span>
+    <div class="footer-brand"><BrandWordmark /><span>Raum für Neues.</span></div>
+    <span class="footer-copyright">© {{ new Date().getFullYear() }} NEXRUM</span>
     <nav aria-label="Rechtliche Informationen">
       <a href="/impressum" :aria-current="legalPage === 'impressum' ? 'page' : undefined">Impressum</a>
       <a href="/datenschutz" :aria-current="legalPage === 'datenschutz' ? 'page' : undefined">Datenschutz</a>
