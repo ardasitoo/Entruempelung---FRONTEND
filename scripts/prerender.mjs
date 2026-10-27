@@ -13,7 +13,7 @@ try {
     const content = await renderToString(createSSRApp(App, { path }))
     const html = template
       .replace(/<!--seo-start-->[\s\S]*?<!--seo-end-->/, seoHead(path))
-      .replace('<div id="app"></div>', `<div id="app">${content}</div>`)
+      .replace('<div id="app"></div>', `<div id="app" data-page="${path}">${content}</div>`)
     const directory = path === '/' ? 'dist' : `dist${path}`
     await mkdir(directory, { recursive: true })
     await writeFile(`${directory}/index.html`, html)

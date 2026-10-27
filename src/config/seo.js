@@ -52,7 +52,7 @@ const escapeHtml = (value) => value.replaceAll('&', '&amp;').replaceAll('"', '&q
 
 export function seoHead(path) {
   const page = pages[path]
-  const url = `${siteUrl}${path === '/' ? '/' : path}`
+  const url = `${siteUrl}${path === '/' ? '/' : `${path}/`}`
   return `<title>${escapeHtml(page.title)}</title>
     <meta name="description" content="${escapeHtml(page.description)}" />
     <meta name="robots" content="${page.robots}" />

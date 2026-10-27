@@ -80,8 +80,8 @@ const legalPage = computed(() => ({ '/impressum': 'impressum', '/datenschutz': '
     <div class="footer-brand"><BrandWordmark /><span>Raum für Neues.</span></div>
     <span class="footer-copyright">© {{ new Date().getFullYear() }} NEXRUM</span>
     <nav aria-label="Rechtliche Informationen">
-      <a href="/impressum" :aria-current="legalPage === 'impressum' ? 'page' : undefined">Impressum</a>
-      <a href="/datenschutz" :aria-current="legalPage === 'datenschutz' ? 'page' : undefined">Datenschutz</a>
+      <a href="/impressum/" :aria-current="legalPage === 'impressum' ? 'page' : undefined">Impressum</a>
+      <a href="/datenschutz/" :aria-current="legalPage === 'datenschutz' ? 'page' : undefined">Datenschutz</a>
     </nav>
   </footer>
 </template>

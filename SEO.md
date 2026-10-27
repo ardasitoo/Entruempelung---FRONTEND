@@ -12,13 +12,13 @@ Der Build ruft das Backend nicht auf und enthält keine Kundenanfragen.
 Der Browser übernimmt das fertige HTML mit Vue-Hydration.
 
 `public/robots.txt` verweist auf `public/sitemap.xml`. Die Sitemap enthält nur die
-öffentlichen Seiten. `/admin` erhält `noindex, nofollow` im fertigen HTML;
+öffentlichen Seiten. `/admin/` erhält `noindex, nofollow` im fertigen HTML;
 robots.txt sperrt den Abruf nicht, damit Suchmaschinen diese Anweisung lesen können.
 Die Authentifizierung für Kundendaten bleibt unabhängig davon erforderlich.
 
 Nach dem Deployment prüfen:
-- `/`, `/impressum`, `/datenschutz`, `/admin` direkt öffnen.
-- `/admin` muss schon im HTML-Quelltext `noindex` enthalten.
+- `/`, `/impressum/`, `/datenschutz/`, `/admin/` direkt öffnen.
+- `/admin/` muss schon im HTML-Quelltext `noindex` enthalten.
 - `/sitemap.xml` und `/robots.txt` müssen echte Dateien liefern, nicht die Startseite.
 - Startseite im Google Rich Results Test und in der URL-Prüfung der Search Console prüfen.
 - Domain-Property in Google Search Console per DNS-TXT bestätigen und `sitemap.xml` einreichen.
@@ -26,3 +26,8 @@ Nach dem Deployment prüfen:
 Die Search-Console-Verifizierung benötigt einen Kontozugang und den von Google
 erzeugten TXT-Wert. Sie ist kein Bestandteil des Quellcodes. SEO garantiert keine
 Indexierung oder bestimmte Position in den Suchergebnissen.
+
+Render liefert Verzeichnis-Indizes unter URLs mit abschließendem Slash aus.
+Öffentliche Links, Sitemap und Canonicals verwenden daher diese URLs. Alte URLs
+ohne Slash bleiben über den SPA-Fallback nutzbar; dort werden Inhalte und Metadaten
+im Browser angepasst. Vue hydratisiert nur HTML derselben Seite.

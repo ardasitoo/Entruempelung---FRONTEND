@@ -3,7 +3,7 @@ import { pages, seoHead } from './config/seo'
 import './style.css'
 import App from './App.vue'
 
-const path = window.location.pathname.replace(/\/+$/, '') || '/'
+const path = window.location.pathname.replace(/\/index\.html$/, '/').replace(/\.html$/, '').replace(/\/+$/, '') || '/'
 // Keep metadata correct even when the host serves the SPA fallback for a deep link.
 if (pages[path]) {
   const head = document.createElement('template')
@@ -12,5 +12,5 @@ if (pages[path]) {
   document.head.append(head.content)
 }
 const app = document.querySelector('#app')
-const create = app.hasChildNodes() ? createSSRApp : createApp
+const create = app.hasChildNodes() && app.dataset.page === path ? createSSRApp : createApp
 create(App, { path }).mount(app)
