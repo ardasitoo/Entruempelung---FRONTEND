@@ -20,6 +20,9 @@ const statusOptions = [
 ]
 const selectedStatuses = ref({})
 const savingStatuses = ref({})
+const deletingRequests = ref({})
+const isMutating = computed(() => Object.values(savingStatuses.value).some(Boolean) || Object.values(deletingRequests.value).some(Boolean))
+const deleteMessage = ref('')
 const statusMessages = ref({})
 const statusErrors = ref({})
 const statusLabel = (status) => statusOptions.find((option) => option.value === status)?.label || status
@@ -31,6 +34,7 @@ function createAuthorizationHeader() {
 }
 
 async function loadCustomerRequests() {
+  deleteMessage.value = ''
   isLoading.value = true
   errorMessage.value = ''
 
@@ -63,7 +67,35 @@ async function loadCustomerRequests() {
   }
 }
 
+async function deleteRequest(request) {
+  const id = request.id
+  if (isLoading.value || isMutating.value) return
+  if (!window.confirm(`Auftrag #${id} von ${request.firstName} ${request.lastName} endgültig löschen?\n\nDer Auftrag wird aus der Datenbank gelöscht und kann hier nicht wiederhergestellt werden. Bereits versendete E-Mails bleiben erhalten.`)) return
+  deletingRequests.value[id] = true
+  statusErrors.value[id] = ''
+  deleteMessage.value = ''
+  try {
+    const response = await fetch(`${apiBaseUrl}/api/customer-requests/${id}`, {
+      method: 'DELETE',
+      headers: { Authorization: createAuthorizationHeader() },
+    })
+    if (response.status === 401 || response.status === 403) throw new Error('Keine Berechtigung. Bitte erneut anmelden.')
+    if (response.status !== 404 && !response.ok) throw new Error('Der Auftrag konnte nicht gelöscht werden. Bitte erneut versuchen.')
+    customerRequests.value = customerRequests.value.filter((item) => item.id !== id)
+    delete selectedStatuses.value[id]
+    delete statusMessages.value[id]
+    delete statusErrors.value[id]
+    deleteMessage.value = `Auftrag #${id} ist nicht mehr in der Anfragedatenbank vorhanden.`
+  } catch (error) {
+    statusErrors.value[id] = error instanceof TypeError
+      ? 'Keine Verbindung zum Server. Bitte erneut versuchen.' : error.message
+  } finally {
+    deletingRequests.value[id] = false
+  }
+}
+
 async function saveStatus(request) {
+  if (isLoading.value || isMutating.value) return
   const id = request.id
   savingStatuses.value[id] = true
   statusMessages.value[id] = ''
@@ -91,6 +123,7 @@ async function saveStatus(request) {
 }
 
 function logout() {
+  deleteMessage.value = ''
   password.value = ''
   customerRequests.value = []
   isLoggedIn.value = false
@@ -120,7 +153,7 @@ function logout() {
           Passwort
           <input v-model="password" type="password" autocomplete="current-password" required />
         </label>
-        <button type="submit" :disabled="isLoading || Object.values(savingStatuses).some(Boolean)">
+        <button type="submit" :disabled="isLoading || isMutating">
           {{ isLoading ? 'Anmelden...' : 'Anmelden' }}
         </button>
         <p v-if="errorMessage" class="error-text">{{ errorMessage }}</p>
@@ -130,13 +163,14 @@ function logout() {
         <div class="admin-toolbar">
           <p>{{ customerRequests.length }} Anfrage(n)</p>
           <div class="admin-actions">
-            <button type="button" class="secondary admin-action-button" :disabled="isLoading || Object.values(savingStatuses).some(Boolean)" @click="loadCustomerRequests">
+            <button type="button" class="secondary admin-action-button" :disabled="isLoading || isMutating" @click="loadCustomerRequests">
               Aktualisieren
             </button>
-            <button type="button" class="admin-action-button" :disabled="Object.values(savingStatuses).some(Boolean)" @click="logout">Abmelden</button>
+            <button type="button" class="admin-action-button" :disabled="isLoading || isMutating" @click="logout">Abmelden</button>
           </div>
         </div>
 
+        <p v-if="deleteMessage" class="info-text" role="status">{{ deleteMessage }}</p>
         <p v-if="isLoading" class="info-text">Anfragen werden geladen...</p>
         <p v-else-if="!hasRequests" class="info-text">Es liegen noch keine Anfragen vor.</p>
 
@@ -153,10 +187,10 @@ function logout() {
             <form class="status-editor" @submit.prevent="saveStatus(request)">
               <label :for="`status-${request.id}`">Auftragsstatus</label>
               <div class="status-controls">
-                <select :id="`status-${request.id}`" v-model="selectedStatuses[request.id]" :disabled="savingStatuses[request.id]">
+                <select :id="`status-${request.id}`" v-model="selectedStatuses[request.id]" :disabled="isMutating">
                   <option v-for="option in statusOptions" :key="option.value" :value="option.value">{{ option.label }}</option>
                 </select>
-                <button type="submit" :disabled="savingStatuses[request.id] || selectedStatuses[request.id] === request.status">
+                <button type="submit" :disabled="isMutating || selectedStatuses[request.id] === request.status">
                   {{ savingStatuses[request.id] ? 'Speichert…' : 'Status speichern' }}
                 </button>
               </div>
@@ -198,6 +232,9 @@ function logout() {
             </dl>
 
             <p class="admin-message">{{ request.message || 'Keine Nachricht angegeben.' }}</p>
+            <button type="button" class="secondary" :disabled="isLoading || isMutating" @click="deleteRequest(request)">
+              {{ deletingRequests[request.id] ? 'Wird gelöscht…' : 'Auftrag endgültig löschen' }}
+            </button>
           </article>
         </div>
       </div>
