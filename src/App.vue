@@ -7,12 +7,9 @@ import ServiceList from './components/ServiceList.vue'
 import LegalPage from './components/LegalPage.vue'
 import BrandWordmark from './components/BrandWordmark.vue'
 
-const currentPath = computed(() => window.location.pathname.replace(/\/+$/, '') || '/')
+const props = defineProps({ path: { type: String, default: '' } })
+const currentPath = computed(() => (props.path || window.location.pathname).replace(/\/+$/, '') || '/')
 const legalPage = computed(() => ({ '/impressum': 'impressum', '/datenschutz': 'datenschutz' })[currentPath.value])
-document.title = 'NEXRUM – Raum für Neues'
-if (legalPage.value) {
-  document.title = `${legalPage.value === 'impressum' ? 'Impressum' : 'Datenschutzerklärung'} | NEXRUM`
-}
 </script>
 
 <template>
@@ -36,7 +33,7 @@ if (legalPage.value) {
         <div class="hero-content">
           <p class="eyebrow"><span class="eyebrow-line" aria-hidden="true"></span> NEXRUM · Entrümpelung &amp; Umzüge in Berlin</p>
           <h1>Platz für das,<br />was <span>kommt.</span></h1>
-          <p class="hero-text">Wir schaffen Raum für deinen nächsten Schritt. Mit Entrümpelungen, Wohnungsauflösungen, Umzügen und fachgerechter Entsorgung. Einfache Streicharbeiten für eine saubere Übergabe bieten wir auf Wunsch an.</p>
+          <p class="hero-text">NEXRUM unterstützt dich in Berlin bei Entrümpelungen, Wohnungsauflösungen, Umzügen und fachgerechter Entsorgung. Einfache Streicharbeiten für eine saubere Übergabe bieten wir auf Wunsch an.</p>
           <div class="hero-actions">
             <a class="button primary" href="#kontakt">Kostenlose Anfrage stellen <span aria-hidden="true">↗</span></a>
             <a class="text-link" href="#leistungen">Leistungen entdecken <span aria-hidden="true">↓</span></a>
@@ -51,7 +48,7 @@ if (legalPage.value) {
 
       <section id="leistungen" class="section">
         <div class="section-heading split-heading">
-          <div><p class="eyebrow">01 / Unsere Leistungen</p><h2>Mehr Freiraum.<br />Weniger Aufwand.</h2></div>
+          <div><p class="eyebrow">01 / Unsere Leistungen</p><h2>Entrümpelung &amp; Umzüge.<br />Für dich in Berlin.</h2></div>
           <p>Vom einzelnen Raum bis zum Umzug: Wir helfen dir, den nächsten Schritt übersichtlich und unkompliziert anzugehen – auf Wunsch auch mit einfachen Streicharbeiten zur Übergabe.</p>
         </div>
         <ServiceList />
