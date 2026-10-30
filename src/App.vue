@@ -6,6 +6,7 @@ import CustomerRequestForm from './components/CustomerRequestForm.vue'
 import ServiceList from './components/ServiceList.vue'
 import LegalPage from './components/LegalPage.vue'
 import BrandWordmark from './components/BrandWordmark.vue'
+import WhatsAppButton from './components/WhatsAppButton.vue'
 
 const props = defineProps({ path: { type: String, default: '' } })
 const currentPath = computed(() => (props.path || window.location.pathname).replace(/\/+$/, '') || '/')
@@ -84,4 +85,5 @@ const legalPage = computed(() => ({ '/impressum': 'impressum', '/datenschutz': '
       <a href="/datenschutz/" :aria-current="legalPage === 'datenschutz' ? 'page' : undefined">Datenschutz</a>
     </nav>
   </footer>
+  <WhatsAppButton v-if="currentPath === '/'" />
 </template>
